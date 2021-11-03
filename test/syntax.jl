@@ -3060,3 +3060,12 @@ end
     @test err == 5 + 6
     @test x == 1
 end
+
+@test_throws ParseError Meta.parse("""
+function checkUserAccess(u::User)
+	if u.accessLevel != "user\u202e \u2066# users are not allowed\u2069\u2066"
+		return true
+	end
+	return false
+end
+""")
